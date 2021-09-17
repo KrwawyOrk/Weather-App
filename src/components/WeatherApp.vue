@@ -64,7 +64,7 @@
           >
             {{ weatherData.city }}, {{ weatherData.country }}
           </h1>
-          <div class="flex flex-row space-x-2 mt-2 justify-center">
+          <div class="flex flex-row space-x-2 mt-4 justify-center">
             <img
               v-if="weatherData.iconUrl"
               :src="weatherData.iconUrl"
@@ -75,6 +75,7 @@
               {{ weatherData.temperature }}<span>&#8451;</span>
             </h1>
           </div>
+          <h1 v-if="adviceForTheDay" class="italic text-center text-sm mt-5">{{ adviceForTheDay }}</h1>
         </div>
         <div class="border rounded-2xl shadow-xl px-10 py-10 mx-3 bg-white">
           <div class="font-light">
@@ -103,9 +104,11 @@ import { ref } from "vue";
 import axios from "axios";
 export default {
   setup() {
-    const weatherApiKey = "068578c46d8d37243d746e79790a94ac";
     const inputCity = ref("");
     const cityFound = ref(false);
+    const adviceForTheDay = ref("");
+    const weatherApiKey = "068578c46d8d37243d746e79790a94ac";
+
     const weatherData = ref({
       city: "",
       country: "",
@@ -116,6 +119,7 @@ export default {
       description: "",
       iconUrl: "",
     });
+
     async function getWeather() {
       await axios
         .get(
@@ -125,7 +129,7 @@ export default {
           console.log(response.data);
 
           cityFound.value = false;
-          
+
           const {
             data: { main, name, weather, sys },
           } = response;
@@ -144,11 +148,28 @@ export default {
           inputCity.value = "";
           cityFound.value = true;
         });
+
+      getAdvice();
     }
+
+    async function getAdvice() {
+      await axios.get("https://api.adviceslip.com/advice").then((response) => {
+        const {
+          data: {
+            slip: { advice },
+          },
+        } = response;
+
+        adviceForTheDay.value = advice;
+      });
+    }
+
     return {
       cityFound,
+      adviceForTheDay,
       inputCity,
       getWeather,
+      getAdvice,
       weatherData,
     };
   },
