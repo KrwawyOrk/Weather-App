@@ -4,7 +4,7 @@
       class="
         flex flex-col
         m-auto
-        h-screen
+        min-h-screen
         max-w-lg
         p-1
         bg-gradient-to-r
@@ -36,7 +36,7 @@
           :placeholder="inputCity ? '' : 'Write city'"
         />
         <button
-          @click="getWeather"
+          @click="getData"
           class="
             bg-yellow-600
             hover:bg-yellow-700
@@ -75,7 +75,9 @@
               {{ weatherData.temperature }}<span>&#8451;</span>
             </h1>
           </div>
-          <h1 v-if="adviceForTheDay" class="italic text-center text-sm mt-5">{{ adviceForTheDay }}</h1>
+          <h1 v-if="adviceForTheDay" class="italic text-center text-sm mt-5">
+            {{ adviceForTheDay }}
+          </h1>
         </div>
         <div class="border rounded-2xl shadow-xl px-10 py-10 mx-3 bg-white">
           <div class="font-light">
@@ -120,19 +122,18 @@ export default {
       iconUrl: "",
     });
 
-    async function getWeather() {
-      await axios
-        .get(
-          `https://api.openweathermap.org/data/2.5/weather?q=${inputCity.value}&appid=${weatherApiKey}&units=metric`
-        )
-        .then((response) => {
-          console.log(response.data);
+    async function getData() {
+      const weatherApiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${inputCity.value}&appid=${weatherApiKey}&units=metric`;
+      const adviceApiUrl = "https://api.adviceslip.com/advice";
 
+      await Promise.all([axios.get(weatherApiUrl), axios.get(adviceApiUrl)])
+        .then((response) => {
           cityFound.value = false;
 
+          //Weather
           const {
             data: { main, name, weather, sys },
-          } = response;
+          } = response[0];
 
           const ref = weatherData.value;
           ref.city = name;
@@ -143,34 +144,28 @@ export default {
           ref.temperatureMax = main.temp_max;
           ref.description = weather[0].description;
           ref.iconUrl = `https://openweathermap.org/img/w/${weather[0].icon}.png`;
+
+          //Advice
+          const {
+            data: {
+              slip: { advice },
+            },
+          } = response[1];
+
+          adviceForTheDay.value = advice;
         })
         .finally(() => {
           inputCity.value = "";
           cityFound.value = true;
         });
-
-      getAdvice();
-    }
-
-    async function getAdvice() {
-      await axios.get("https://api.adviceslip.com/advice").then((response) => {
-        const {
-          data: {
-            slip: { advice },
-          },
-        } = response;
-
-        adviceForTheDay.value = advice;
-      });
     }
 
     return {
       cityFound,
       adviceForTheDay,
       inputCity,
-      getWeather,
-      getAdvice,
       weatherData,
+      getData,
     };
   },
 };
