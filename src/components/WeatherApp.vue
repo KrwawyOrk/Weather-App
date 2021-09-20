@@ -36,7 +36,7 @@
           :placeholder="inputCity ? '' : 'Write city'"
         />
         <button
-          @click="getData"
+          @click="getWeatherData(inputCity)"
           class="
             bg-yellow-600
             hover:bg-yellow-700
@@ -102,8 +102,11 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import axios from "axios";
+
+import { getRandomCapital } from "../functions/getRandomCapital";
+
 export default {
   setup() {
     const inputCity = ref("");
@@ -122,13 +125,18 @@ export default {
       iconUrl: "",
     });
 
-    async function getData() {
-      const weatherApiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${inputCity.value}&appid=${weatherApiKey}&units=metric`;
+    onMounted(() => {
+      getWeatherData(getRandomCapital());
+    });
+
+    async function getWeatherData(city) {
+      const weatherApiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${weatherApiKey}&units=metric`;
       const adviceApiUrl = "https://api.adviceslip.com/advice";
 
       await Promise.all([axios.get(weatherApiUrl), axios.get(adviceApiUrl)])
         .then((response) => {
           cityFound.value = false;
+          inputCity.value = "Loading weather data...";
 
           //Weather
           const {
@@ -165,7 +173,7 @@ export default {
       adviceForTheDay,
       inputCity,
       weatherData,
-      getData,
+      getWeatherData,
     };
   },
 };
