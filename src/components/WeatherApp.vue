@@ -96,6 +96,24 @@
             </h1>
           </div>
         </div>
+        <button
+          @click="getWeatherForRandomCity"
+          class="
+            bg-yellow-600
+            hover:bg-yellow-700
+            text-white
+            font-bold
+            py-1
+            px-4
+            rounded-md
+            text-sm
+            w-4/12
+            focus:outline-none
+            mx-auto
+          "
+        >
+          Get random city!
+        </button>
       </div>
     </div>
   </section>
@@ -168,12 +186,17 @@ export default {
         });
     }
 
+    function getWeatherForRandomCity() {
+      getWeatherData(getRandomCapital());
+    }
+
     return {
       cityFound,
       adviceForTheDay,
       inputCity,
       weatherData,
       getWeatherData,
+      getWeatherForRandomCity,
     };
   },
 };
