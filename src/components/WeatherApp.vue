@@ -55,7 +55,7 @@
       </div>
       <div
         v-if="cityFound"
-        class="flex flex-col m-auto space-y-4 min-w-full weather-animation"
+        class="flex flex-col mx-auto mt-4 space-y-4 min-w-full weather-animation"
       >
         <div class="border rounded-2xl shadow-xl px-10 py-10 mx-3 bg-white">
           <h1
