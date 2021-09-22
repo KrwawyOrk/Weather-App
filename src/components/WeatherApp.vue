@@ -15,10 +15,24 @@
       <div class="px-2 py-1 rounded-md" style="background-color: #e46b1b">
         <h1 class="text-lg text-white font-bold">Weather App</h1>
       </div>
-      <div class="bg-blue-600 px-2 py-1 rounded-md mt-2">
-        <h1 class="text-lg text-white font-light">
-          Checking weather data for: {{ inputCity }}
-        </h1>
+      <div class="flex justify-around bg-blue-600 px-2 py-1 rounded-md mt-2">
+        <button
+          @click="getWeatherForRandomCity"
+          class="
+            bg-yellow-600
+            hover:bg-yellow-700
+            text-white
+            font-bold
+            py-1
+            px-4
+            rounded-md
+            text-sm
+            w-4/12
+            focus:outline-none
+          "
+        >
+          Get random city!
+        </button>
       </div>
       <div class="flex flex-row justify-between mt-2">
         <input
@@ -53,9 +67,16 @@
           Get weather!
         </button>
       </div>
+      <section class="my-auto">
       <div
         v-if="cityFound"
-        class="flex flex-col mx-auto mt-4 space-y-4 min-w-full weather-animation"
+        class="
+          flex flex-col
+          mt-4
+          space-y-4
+          min-w-full
+          weather-animation
+        "
       >
         <div class="border rounded-2xl shadow-xl px-10 py-10 mx-3 bg-white">
           <h1
@@ -96,25 +117,8 @@
             </h1>
           </div>
         </div>
-        <button
-          @click="getWeatherForRandomCity"
-          class="
-            bg-yellow-600
-            hover:bg-yellow-700
-            text-white
-            font-bold
-            py-1
-            px-4
-            rounded-md
-            text-sm
-            w-4/12
-            focus:outline-none
-            mx-auto
-          "
-        >
-          Get random city!
-        </button>
       </div>
+      </section>
     </div>
   </section>
 </template>
