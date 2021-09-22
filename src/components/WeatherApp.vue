@@ -5,6 +5,7 @@
         flex flex-col
         m-auto
         min-h-screen
+        max-h-screen
         max-w-lg
         p-1
         bg-gradient-to-r
@@ -27,7 +28,6 @@
             px-4
             rounded-md
             text-sm
-            w-4/12
             focus:outline-none
           "
         >
@@ -67,57 +67,51 @@
           Get weather!
         </button>
       </div>
-      <section class="my-auto">
-      <div
-        v-if="cityFound"
-        class="
-          flex flex-col
-          mt-4
-          space-y-4
-          min-w-full
-          weather-animation
-        "
-      >
-        <div class="border rounded-2xl shadow-xl px-10 py-10 mx-3 bg-white">
-          <h1
-            v-if="weatherData.city && weatherData.country"
-            class="text-3xl font-bold text-center"
-          >
-            {{ weatherData.city }}, {{ weatherData.country }}
-          </h1>
-          <div class="flex flex-row space-x-2 mt-4 justify-center">
-            <img
-              v-if="weatherData.iconUrl"
-              :src="weatherData.iconUrl"
-              width="70"
-              height="70"
-            />
-            <h1 v-if="weatherData.temperature" class="text-4xl font-bold">
-              {{ weatherData.temperature }}<span>&#8451;</span>
+      <section class="my-auto overflow-y-auto">
+        <div
+          v-if="cityFound"
+          class="flex flex-col mt-4 space-y-4 min-w-full weather-animation"
+        >
+          <div class="border rounded-2xl shadow-xl px-10 py-10 mx-3 bg-white">
+            <h1
+              v-if="weatherData.city && weatherData.country"
+              class="text-3xl font-bold text-center"
+            >
+              {{ weatherData.city }}, {{ weatherData.country }}
+            </h1>
+            <div class="flex flex-row space-x-2 mt-4 justify-center">
+              <img
+                v-if="weatherData.iconUrl"
+                :src="weatherData.iconUrl"
+                width="70"
+                height="70"
+              />
+              <h1 v-if="weatherData.temperature" class="text-4xl font-bold">
+                {{ weatherData.temperature }}<span>&#8451;</span>
+              </h1>
+            </div>
+            <h1 v-if="adviceForTheDay" class="italic text-center text-sm mt-5">
+              {{ adviceForTheDay }}
             </h1>
           </div>
-          <h1 v-if="adviceForTheDay" class="italic text-center text-sm mt-5">
-            {{ adviceForTheDay }}
-          </h1>
-        </div>
-        <div class="border rounded-2xl shadow-xl px-10 py-10 mx-3 bg-white">
-          <div class="font-light">
-            <h1 v-if="weatherData.description">
-              Description: {{ weatherData.description }}
-            </h1>
-            <h1 v-if="weatherData.temperatureFellsLike">
-              Feels like: {{ weatherData.temperatureFellsLike
-              }}<span>&#8451;</span>
-            </h1>
-            <h1 v-if="weatherData.temperatureMin">
-              Temp min: {{ weatherData.temperatureMin }}<span>&#8451;</span>
-            </h1>
-            <h1 v-if="weatherData.temperatureMax">
-              Temp max: {{ weatherData.temperatureMax }}<span>&#8451;</span>
-            </h1>
+          <div class="border rounded-2xl shadow-xl px-10 py-10 mx-3 bg-white">
+            <div class="font-light">
+              <h1 v-if="weatherData.description">
+                Description: {{ weatherData.description }}
+              </h1>
+              <h1 v-if="weatherData.temperatureFellsLike">
+                Feels like: {{ weatherData.temperatureFellsLike
+                }}<span>&#8451;</span>
+              </h1>
+              <h1 v-if="weatherData.temperatureMin">
+                Temp min: {{ weatherData.temperatureMin }}<span>&#8451;</span>
+              </h1>
+              <h1 v-if="weatherData.temperatureMax">
+                Temp max: {{ weatherData.temperatureMax }}<span>&#8451;</span>
+              </h1>
+            </div>
           </div>
         </div>
-      </div>
       </section>
     </div>
   </section>
