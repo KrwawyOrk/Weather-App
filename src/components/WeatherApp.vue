@@ -5,35 +5,15 @@
         flex flex-col
         m-auto
         min-h-screen
-        max-h-screen
-        max-w-lg
+        max-h-screen max-w-lg
         p-1
-        bg-gradient-to-r
-        from-blue-900
-        to-blue-800
+        background-night
       "
     >
       <div class="px-2 py-1 rounded-md" style="background-color: #e46b1b">
         <h1 class="text-lg text-white font-bold">Weather App</h1>
       </div>
-      <div class="flex justify-around bg-blue-600 px-2 py-1 rounded-md mt-2">
-        <button
-          @click="getWeatherForRandomCity"
-          class="
-            bg-yellow-600
-            hover:bg-yellow-700
-            text-white
-            font-bold
-            py-1
-            px-4
-            rounded-md
-            text-sm
-            focus:outline-none
-          "
-        >
-          Get random city!
-        </button>
-      </div>
+
       <div class="flex flex-row justify-between mt-2">
         <input
           v-model="inputCity"
@@ -67,6 +47,25 @@
           Get weather!
         </button>
       </div>
+      <div class="flex justify-around px-2 py-1 mt-2">
+        <button
+          @click="getWeatherForRandomCity"
+          class="
+            bg-yellow-600
+            hover:bg-yellow-700
+            text-white
+            font-bold
+            py-1
+            px-4
+            rounded-md
+            text-sm
+            focus:outline-none
+          "
+        >
+          Get random city!
+        </button>
+      </div>
+
       <section class="my-auto overflow-y-auto">
         <div
           v-if="cityFound"
@@ -218,5 +217,15 @@ export default {
     opacity: 1;
     transform: translate(0, 0);
   }
+}
+
+.background-day {
+  background-image: url("../assets/morning.jpg");
+  background-size: cover;
+}
+
+.background-night {
+  background-image: url("../assets/night.jpg");
+  background-size: cover;
 }
 </style>
