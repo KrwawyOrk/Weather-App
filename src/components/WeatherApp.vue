@@ -1,14 +1,8 @@
 <template>
   <section class="w-full h-full">
     <div
-      class="
-        flex flex-col
-        m-auto
-        min-h-screen
-        max-h-screen max-w-lg
-        p-1
-        background-night
-      "
+      class="flex flex-col m-auto min-h-screen max-h-screen max-w-lg p-1"
+      :class="weatherData.day === 'day' ? 'background-day' : 'background-night'"
     >
       <div class="px-2 py-1 rounded-md" style="background-color: #e46b1b">
         <h1 class="text-lg text-white font-bold">Weather App</h1>
@@ -66,7 +60,7 @@
         </button>
       </div>
 
-      <section class="my-auto overflow-y-auto">
+      <section class="overflow-y-auto">
         <div
           v-if="cityFound"
           class="flex flex-col mt-4 space-y-4 min-w-full weather-animation"
@@ -93,7 +87,7 @@
               {{ adviceForTheDay }}
             </h1>
           </div>
-          <div class="border rounded-2xl shadow-xl px-10 py-10 mx-3 bg-white">
+          <div class="border rounded-2xl shadow-xl px-10 py-2 sm:py-10 mx-3 bg-white">
             <div class="font-light">
               <h1 v-if="weatherData.description">
                 Description: {{ weatherData.description }}
@@ -138,6 +132,7 @@ export default {
       temperatureMax: "",
       description: "",
       iconUrl: "",
+      day: "",
     });
 
     onMounted(() => {
@@ -167,6 +162,7 @@ export default {
           ref.temperatureMax = main.temp_max;
           ref.description = weather[0].description;
           ref.iconUrl = `https://openweathermap.org/img/w/${weather[0].icon}.png`;
+          ref.day = ref.iconUrl.includes("d.png") ? "day" : "night";
 
           //Advice
           const {
@@ -222,10 +218,12 @@ export default {
 .background-day {
   background-image: url("../assets/morning.jpg");
   background-size: cover;
+  background-position: center;
 }
 
 .background-night {
   background-image: url("../assets/night.jpg");
   background-size: cover;
+  background-position: center;
 }
 </style>
