@@ -204,14 +204,12 @@ export default {
 @keyframes show_weather_data {
   0% {
     opacity: 0;
-    transform: translate(-50%, 0);
   }
   50% {
     opacity: 0.5;
   }
   100% {
-    opacity: 1;
-    transform: translate(0, 0);
+    opacity: 1;   
   }
 }
 
