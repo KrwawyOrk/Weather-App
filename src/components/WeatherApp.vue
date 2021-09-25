@@ -115,13 +115,14 @@ import { ref, onMounted } from "vue";
 import axios from "axios";
 
 import { getRandomCapital } from "../functions/getRandomCapital";
+import { weather_api_key } from "../api_keys";
 
 export default {
   setup() {
     const inputCity = ref("");
     const cityFound = ref(false);
     const adviceForTheDay = ref("");
-    const weatherApiKey = "068578c46d8d37243d746e79790a94ac";
+    const weatherApiKey = weather_api_key;
 
     const weatherData = ref({
       city: "",
