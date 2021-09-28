@@ -1,7 +1,7 @@
 <template>
   <section class="w-full h-full">
     <div
-      class="flex flex-col m-auto min-h-screen max-h-screen max-w-lg p-1"
+      class="flex flex-col m-auto min-h-screen max-h-screen max-w-lg p-1 bg-cover bg-center"
       :class="weatherData.day === 'day' ? 'background-day' : 'background-night'"
     >
       <div class="px-2 py-1 rounded-md" style="background-color: #e46b1b">
@@ -216,13 +216,9 @@ export default {
 
 .background-day {
   background-image: url("../assets/morning.jpg");
-  background-size: cover;
-  background-position: center;
 }
 
 .background-night {
   background-image: url("../assets/night.jpg");
-  background-size: cover;
-  background-position: center;
 }
 </style>
