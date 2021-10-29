@@ -104,6 +104,13 @@
               </h1>
             </div>
           </div>
+          <div class="border rounded-2xl shadow-xl px-10 py-2 sm:py-2 mx-3 bg-white overflow-y-scroll max-h-32">
+         
+              <h1 v-for="city in lastCities" :key="city.city" class="font-light">
+                {{ city.city }}, {{ city.country }} {{ city.temperature }}<span>&#8451;</span>
+              </h1>
+       
+          </div>
         </div>
       </section>
     </div>
@@ -111,11 +118,11 @@
 </template>
 
 <script>
-import { ref, onMounted } from "vue";
 import axios from "axios";
+import { ref, onMounted } from "vue";
 
-import { getRandomCapital } from "../functions/getRandomCapital";
 import { weather_api_key } from "../api_keys";
+import { getRandomCapital } from "../functions/getRandomCapital";
 
 export default {
   setup() {
@@ -123,6 +130,7 @@ export default {
     const cityFound = ref(false);
     const adviceForTheDay = ref("");
     const weatherApiKey = weather_api_key;
+    const lastCities = ref([]);
 
     const weatherData = ref({
       city: "",
@@ -165,6 +173,11 @@ export default {
           ref.iconUrl = `https://openweathermap.org/img/w/${weather[0].icon}.png`;
           ref.day = ref.iconUrl.includes("d.png") ? "day" : "night";
 
+          //lastCities.value = [{city: ref.city, temperature: ref.temperature}, ...lastCities.value];
+          lastCities.value.push({city: ref.city, country: ref.country, temperature: ref.temperature});
+          console.log(lastCities.value);
+
+          
           //Advice
           const {
             data: {
@@ -189,6 +202,7 @@ export default {
       adviceForTheDay,
       inputCity,
       weatherData,
+      lastCities,
       getWeatherData,
       getWeatherForRandomCity,
     };
