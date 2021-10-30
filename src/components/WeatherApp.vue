@@ -1,7 +1,14 @@
 <template>
   <section class="w-full h-full">
     <div
-      class="flex flex-col m-auto min-h-screen max-h-screen max-w-lg p-1 bg-cover bg-center"
+      class="
+        flex flex-col
+        m-auto
+        min-h-screen
+        max-h-screen max-w-lg
+        p-1
+        bg-cover bg-center
+      "
       :class="weatherData.day === 'day' ? 'background-day' : 'background-night'"
     >
       <div class="px-2 py-1 rounded-md" style="background-color: #e46b1b">
@@ -87,7 +94,18 @@
               {{ adviceForTheDay }}
             </h1>
           </div>
-          <div class="border rounded-2xl shadow-xl px-10 py-2 sm:py-10 mx-3 bg-white">
+          <div
+            class="
+              border
+              rounded-2xl
+              shadow-xl
+              px-10
+              py-2
+              sm:py-10
+              mx-3
+              bg-white
+            "
+          >
             <div class="font-light">
               <h1 v-if="weatherData.description">
                 Description: {{ weatherData.description }}
@@ -104,12 +122,24 @@
               </h1>
             </div>
           </div>
-          <div class="border rounded-2xl shadow-xl px-10 py-2 sm:py-2 mx-3 bg-white overflow-y-scroll max-h-32">
-         
-              <h1 v-for="city in lastCities" :key="city.city" class="font-light">
-                {{ city.city }}, {{ city.country }} {{ city.temperature }}<span>&#8451;</span>
-              </h1>
-       
+          <div
+            class="
+              border
+              rounded-2xl
+              shadow-xl
+              px-10
+              py-2
+              sm:py-2
+              mx-3
+              bg-white
+              overflow-y-scroll
+              max-h-32
+            "
+          >
+            <h1 v-for="city in lastCities" :key="city.city" class="font-light">
+              {{ city.city }}, {{ city.country }} {{ city.temperature
+              }}<span>&#8451;</span>
+            </h1>
           </div>
         </div>
       </section>
@@ -121,7 +151,7 @@
 import axios from "axios";
 import { ref, onMounted } from "vue";
 
-import { weather_api_key } from "../api_keys";
+import { weather_api_key } from "../functions/api_keys";
 import { getRandomCapital } from "../functions/getRandomCapital";
 
 export default {
@@ -174,10 +204,13 @@ export default {
           ref.day = ref.iconUrl.includes("d.png") ? "day" : "night";
 
           //lastCities.value = [{city: ref.city, temperature: ref.temperature}, ...lastCities.value];
-          lastCities.value.push({city: ref.city, country: ref.country, temperature: ref.temperature});
+          lastCities.value.push({
+            city: ref.city,
+            country: ref.country,
+            temperature: ref.temperature,
+          });
           console.log(lastCities.value);
 
-          
           //Advice
           const {
             data: {
@@ -224,7 +257,7 @@ export default {
     opacity: 0.5;
   }
   100% {
-    opacity: 1;   
+    opacity: 1;
   }
 }
 
