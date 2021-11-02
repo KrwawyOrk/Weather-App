@@ -203,8 +203,7 @@ export default {
           ref.iconUrl = `https://openweathermap.org/img/w/${weather[0].icon}.png`;
           ref.day = ref.iconUrl.includes("d.png") ? "day" : "night";
 
-          lastCities.value = [...lastCities.value, {city: ref.city, temperature: ref.temperature}];
-          console.log(lastCities.value);
+          lastCities.value = [{city: ref.city, temperature: ref.temperature}, ...lastCities.value];
 
           //Advice
           const {
